@@ -1,0 +1,114 @@
+{
+    "name": "InputMap",
+    "maps": [
+        {
+            "name": "GameplayActions",
+            "id": "3271bd55-2cc2-4dd6-9ea5-8f6c17507d0a",
+            "actions": [
+                {
+                    "name": "FirstTouchContact",
+                    "type": "Button",
+                    "id": "1b2b89a4-4324-4ba3-82d7-09527ce01b06",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "FirstTouchPosition",
+                    "type": "Value",
+                    "id": "46132964-dc2f-479a-97c9-6fa649f03dc2",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Swipe",
+                    "type": "Value",
+                    "id": "082fba62-39cf-4681-8d82-6b64f7ef7d9c",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "SecondTouchContact",
+                    "type": "Button",
+                    "id": "ca054d90-63ba-48d3-b1d7-2083e052e828",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SecondTouchPosition",
+                    "type": "Value",
+                    "id": "fb2e8deb-5ccb-4dac-a15a-e5ca77f8181b",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "d51c200d-17de-4481-a776-7ad20aefd90d",
+                    "path": "<Touchscreen>/touch0/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Swipe",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4937af80-98d2-4571-8724-9975124dca48",
+                    "path": "<Touchscreen>/touch1/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SecondTouchPosition",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "af61c1d5-c98d-40ef-a1fe-8f9ce64a27a6",
+                    "path": "<Touchscreen>/touch0/press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "FirstTouchContact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5cb5e608-8d93-45fb-8a14-e77c61425842",
+                    "path": "<Touchscreen>/touch1/press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SecondTouchContact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5fee319b-0cb1-4271-879c-b4dfe443cfad",
+                    "path": "<Touchscreen>/touch0/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "FirstTouchPosition",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
