@@ -9,8 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4fd2aa3492044e52bf1dea4dbead0d2, type: 3}
-  m_Name: BallConfigs
+  m_Script: {fileID: 11500000, guid: 10e432f691493494ab5c1db6aa3324a2, type: 3}
+  m_Name: FirstLevelConfigs
   m_EditorClassIdentifier: 
-  <StepSize>k__BackingField: 2
-  <MoveDuration>k__BackingField: 0.25
+  <CellLayer>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 8
+  <RayCheckCellDistance>k__BackingField: 1
+  <BallStartPosition>k__BackingField: {x: 0, y: 0.5, z: 0}

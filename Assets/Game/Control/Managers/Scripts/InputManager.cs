@@ -20,6 +20,7 @@ namespace Managers {
             _iControlMoveTheBall = iControlMoveTheBall;
             _iControlZoomTheCamera = iControlZoomTheCamera;
 
+            // Set other fields
             _touchscreenInputController = new TouchscreenInputController(new InputMap());
         }
 
@@ -46,7 +47,7 @@ namespace Managers {
         }
 
         private void SendInputDirectionToController(Vector2 inputDelay, Vector2 position) {
-            if (_isDoubleInputActive || Vector2.Distance(_singleInputStartPosition, position) < 500) return;
+            if (_isDoubleInputActive || Vector2.Distance(_singleInputStartPosition, position) < 500f) return;
 
             _singleInputStartPosition = position;
 

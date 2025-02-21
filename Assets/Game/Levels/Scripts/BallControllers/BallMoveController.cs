@@ -15,16 +15,22 @@ namespace BallControllers {
 
         #region DI
             private IControlTheLevel _iControlTheLevel;
+            private IControlTheLastAction _iControlTheLastAction;
         #endregion
 
         [Inject]
-        private void Construct(IControlTheLevel iControlTheLevel, BallConfigs ballConfigs) {
+        private void Construct (
+            IControlTheLevel iControlTheLevel, 
+            BallAndCellConfigs ballAndCellConfigs,
+            IControlTheLastAction iControlTheLastAction
+            ) {
             // Set DI
             _iControlTheLevel = iControlTheLevel;
+            _iControlTheLastAction = iControlTheLastAction;
 
             // Set configurations
-            _stepSize = ballConfigs.StepSize;
-            _moveDuration = ballConfigs.MoveDuration;
+            _stepSize = ballAndCellConfigs.StepSize;
+            _moveDuration = ballAndCellConfigs.MoveDuration;
 
             // Set other fields
             _ballRadius = transform.localScale.x / 2;
@@ -36,12 +42,14 @@ namespace BallControllers {
             ColorTheCell();
         }
 
-        public void MoveBallToNewPosition(Vector3 direction) {
+        public void MoveBallToNewPosition(Vector3 direction, bool isForceMove = false) {
             if (_isBallMoveing) return;
 
             Vector3 position = transform.position + direction * _stepSize;
 
-            if (!_iControlTheLevel.IsMovementPossible(position)) return;
+            if (!_iControlTheLevel.IsMovementPossible(position) && !isForceMove) return;
+
+            if (!isForceMove) _iControlTheLastAction.SetNewActionData(direction, _iControlTheLevel.DoesThisCellHaveCoin(position));
 
             _isBallMoveing = true;
 
@@ -63,6 +71,10 @@ namespace BallControllers {
             ColorTheCell();
         }
 
+        public bool IsBallMoveing() {
+            return _isBallMoveing;
+        }
+
         private void ColorTheCell() {
             _iControlTheLevel.ColorTheCell(transform.position);
         }
@@ -75,6 +87,7 @@ namespace BallControllers {
 
 public interface IControlMoveTheBall {
     public void SetStartPosition(Vector3 position);
-    public void MoveBallToNewPosition(Vector3 direction);
+    public void MoveBallToNewPosition(Vector3 direction, bool isForceMove = false);
+    public bool IsBallMoveing();
     public Transform GetTransformBall();
 }

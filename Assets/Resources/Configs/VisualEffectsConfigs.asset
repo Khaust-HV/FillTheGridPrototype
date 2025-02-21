@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ba7d2c0a85e04d15a3aeb3f6a81fd69, type: 3}
+  m_Name: VisualEffectsConfigs
+  m_EditorClassIdentifier: 
+  <CellMaterial>k__BackingField: {fileID: 2100000, guid: 482e9bd948af84a98bc8d48316eea57b,
+    type: 2}
+  <CellBaseColor>k__BackingField: {r: 0.5849056, g: 0.5849056, b: 0.5849056, a: 0}
+  <StartCutoffHeight>k__BackingField: -7
+  <FinishCutoffHeight>k__BackingField: -1
+  <SpawnDuration>k__BackingField: 1
+  <DefaultSkinMaterial>k__BackingField: {fileID: 2100000, guid: 55d2fc3218e7c4a45aeb43555fc1a7d4,
+    type: 2}
+  <DefaultSkinColor>k__BackingField: {r: 1, g: 0.35096747, b: 0, a: 0}
