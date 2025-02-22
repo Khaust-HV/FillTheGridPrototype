@@ -17,3 +17,4 @@ MonoBehaviour:
     m_Bits: 8
   <RayCheckCellDistance>k__BackingField: 1
   <BallStartPosition>k__BackingField: {x: 0, y: 0.5, z: 0}
+  <CoinNumberOnLevel>k__BackingField: 5

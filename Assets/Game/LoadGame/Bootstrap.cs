@@ -15,6 +15,7 @@ public sealed class Bootstrap : MonoBehaviour { // Entry point pattern
         private VisualEffectsConfigs _visualEffectsConfigs;
         private IControlTheLevel _iControlTheLevel;
         private LevelConfigs _levelConfigs;
+        private IControlTheLastAction _iControlTheLastAction;
     #endregion
 
     [Inject]
@@ -25,7 +26,8 @@ public sealed class Bootstrap : MonoBehaviour { // Entry point pattern
         IControlRenderTheBall iControlRenderTheBall,
         VisualEffectsConfigs visualEffectsConfigs,
         IControlTheLevel iControlTheLevel,
-        LevelConfigs levelConfigs
+        LevelConfigs levelConfigs,
+        IControlTheLastAction iControlTheLastAction
         ) {
         // Set DI
         _iControlGameplayInput = iControlGameplayInput;
@@ -35,9 +37,10 @@ public sealed class Bootstrap : MonoBehaviour { // Entry point pattern
         _visualEffectsConfigs = visualEffectsConfigs;
         _iControlTheLevel = iControlTheLevel;
         _levelConfigs = levelConfigs;
+        _iControlTheLastAction = iControlTheLastAction;
     }
 
-    private void Awake() {
+    private void Start() {
         // Generate level
         StartCoroutine(StageByStageToCreateLevel());
 
@@ -49,11 +52,12 @@ public sealed class Bootstrap : MonoBehaviour { // Entry point pattern
 
     private IEnumerator StageByStageToCreateLevel() {
         _iControlTheLevel.SetCells(_cellsStorage);
+        _iControlTheLevel.LevelReset();
+        _iControlTheLevel.SetLevelData(SaveAndLoadController.LoadLevelData());
         _iControlTheLevel.ShowCells();
 
         yield return new WaitForSeconds(_visualEffectsConfigs.SpawnDuration);
 
-        _iControlMoveTheBall.SetStartPosition(_levelConfigs.BallStartPosition);
         _iControlRenderTheBall.SpawnEffectEnable();
 
         yield return new WaitForSeconds(_visualEffectsConfigs.SpawnDuration);
@@ -61,5 +65,11 @@ public sealed class Bootstrap : MonoBehaviour { // Entry point pattern
         // Set input active
         _iControlGameplayInput.SetGameplayInputActionMapActive(true);
         _iControlGameplayInput.SetAllGameplayActive(true);
+
+        // while (true) {
+        //     yield return new WaitForSeconds(5f);
+
+        //     _iControlTheLastAction.BackBeforeAction();
+        // }
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using CellControllers;
 using GameConfigs;
 using UnityEngine;
@@ -10,16 +11,25 @@ namespace Managers {
             private float _rayCheckCellDistance;
         #endregion
 
-        IControlInteractionTheCell[] _iControlInteractionTheCells;
+        #region Level Data
+            private List<int> _paintedCellsIndexList = new();
+            private List<int> _coinsOnCellsIndexList = new();
+            private int _coinNumberOnLevel;
+            private int _numberOfCoinsCollected;
+        #endregion
+
+        private IControlInteractionTheCell[] _iControlInteractionTheCells;
 
         #region DI
             private LevelConfigs _levelConfigs;
+            private IControlTheLastAction _iControlTheLastAction;
         #endregion
 
         [Inject]
-        private void Construct(LevelConfigs levelConfigs) {
+        private void Construct(LevelConfigs levelConfigs, IControlTheLastAction iControlTheLastAction) {
             // Set DI
             _levelConfigs = levelConfigs;
+            _iControlTheLastAction = iControlTheLastAction;
 
             // Set configurations
             _cellLayer = _levelConfigs.CellLayer;
@@ -58,11 +68,41 @@ namespace Managers {
                 cell.SetCellColoredActive(true);
 
                 if (cell.DoesThisCellHaveCoin()) {
-                    // Save data
-
                     cell.SetCoinActive(false);
+
+                    _numberOfCoinsCollected++;
                 }
+
+                SaveLevelProgress();
+
+                LevelComplete();
             }
+        }
+
+        private void LevelComplete() {
+            if (_paintedCellsIndexList.Count >= _iControlInteractionTheCells.Length) {
+                Debug.Log("Level complete!");
+
+                // Level reset and load next level
+            }
+        }
+
+        private void SaveLevelProgress() {
+            _paintedCellsIndexList.Clear();
+            _coinsOnCellsIndexList.Clear();
+
+            for (int i = 0; i < _iControlInteractionTheCells.Length; i++) {
+                if (_iControlInteractionTheCells[i].DoesThisCellColored()) _paintedCellsIndexList.Add(i);
+
+                if (_iControlInteractionTheCells[i].DoesThisCellHaveCoin()) _coinsOnCellsIndexList.Add(i);
+            }
+
+            _iControlTheLastAction.SaveLevelData (
+                _paintedCellsIndexList.ToArray(),
+                _coinsOnCellsIndexList.ToArray(),
+                _coinNumberOnLevel,
+                _numberOfCoinsCollected
+            );
         }
 
         public void ReturnToDefaultTheCell(Vector3 position, bool _returnCoin) {
@@ -75,13 +115,54 @@ namespace Managers {
                 if (_returnCoin) {
                     cell.SetCoinActive(true);
 
-                    // --Coin
+                    _numberOfCoinsCollected--;
                 }
             }
         }
 
         public void SetCells(IControlInteractionTheCell[] iControlInteractionTheCells) {
             _iControlInteractionTheCells = iControlInteractionTheCells;
+        }
+
+        public void SetLevelData(LevelData levelData) {
+            foreach (var paintedCellIndex in levelData.paintedCellsIndexStorage) {
+                _iControlInteractionTheCells[paintedCellIndex].SetCellColoredActive(true);
+            }
+
+            foreach (var coinOnCellIndex in levelData.coinsOnCellsIndexStorage) {
+                _iControlInteractionTheCells[coinOnCellIndex].SetCoinActive(true);
+            }
+
+            _coinNumberOnLevel = levelData.coinNumberOnLevel;
+            _numberOfCoinsCollected = levelData.numberOfCoinsCollected;
+
+            _iControlTheLastAction.SetLevelData(levelData);
+        }
+
+        public void LevelReset() {
+            foreach (var cell in _iControlInteractionTheCells) {
+                cell.SetCellColoredActive(false);
+                cell.SetCoinActive(false);
+            }
+
+            int coinNumber = _levelConfigs.CoinNumberOnLevel;
+
+            _coinNumberOnLevel = coinNumber;
+            _numberOfCoinsCollected = 0;
+
+            while (coinNumber > 0) {
+                var cell = _iControlInteractionTheCells[Random.Range(0, _iControlInteractionTheCells.Length)];
+
+                if (cell.DoesThisCellHaveCoin()) continue;
+
+                cell.SetCoinActive(true);
+
+                coinNumber--;
+            }
+
+            _iControlTheLastAction.LastActionReset();
+
+            SaveLevelProgress();
         }
 
         public void ShowCells() {
@@ -98,5 +179,7 @@ public interface IControlTheLevel {
     public void ColorTheCell(Vector3 position);
     public void ReturnToDefaultTheCell(Vector3 position, bool _returnCoin);
     public void SetCells(IControlInteractionTheCell[] iControlInteractionTheCells);
+    public void SetLevelData(LevelData levelData);
     public void ShowCells();
+    public void LevelReset();
 }

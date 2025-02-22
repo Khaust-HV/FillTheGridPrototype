@@ -14,7 +14,6 @@ namespace CellControllers {
         private void Construct() {
             // Set components
             _iControlRenderTheCell = GetComponent<CellRenderController>();
-            SetCoinActive(true);
         }
 
         public bool DoesThisCellColored() {

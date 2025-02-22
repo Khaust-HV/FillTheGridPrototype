@@ -10,5 +10,6 @@ namespace GameConfigs {
 
         [field: Header("Level start settings")]
         [field: SerializeField] public Vector3 BallStartPosition { get; private set; }
+        [field: SerializeField] public int CoinNumberOnLevel { get; private set; }
     }
 }

@@ -1,3 +1,5 @@
+using GameConfigs;
+using Unity.VisualScripting;
 using UnityEngine;
 using Zenject;
 
@@ -16,13 +18,19 @@ namespace Managers {
         #region DI
             private IControlTheLevel _iControlTheLevel;
             private IControlMoveTheBall _iControlMoveTheBall;
+            private LevelConfigs _levelConfigs;
         #endregion
 
         [Inject]
-        private void Construct(IControlTheLevel iControlTheLevel, IControlMoveTheBall iControlMoveTheBall) {
+        private void Construct (
+            IControlTheLevel iControlTheLevel, 
+            IControlMoveTheBall iControlMoveTheBall,
+            LevelConfigs levelConfigs
+            ) {
             // Set DI
             _iControlTheLevel = iControlTheLevel;
             _iControlMoveTheBall = iControlMoveTheBall;
+            _levelConfigs = levelConfigs;
         }
 
         public void SetNewActionData(Vector3 direction, bool isCoinTaked) {
@@ -44,10 +52,52 @@ namespace Managers {
 
             return true;
         }
+
+        public void SaveLevelData (
+            int[] paintedCellsIndexStorage, 
+            int[] coinsOnCellsIndexStorage, 
+            int coinNumberOnLevel,
+            int numberOfCoinsCollected
+        ){
+            LevelData levelData = new LevelData(
+                paintedCellsIndexStorage,
+                coinsOnCellsIndexStorage,
+                coinNumberOnLevel,
+                numberOfCoinsCollected,
+                _iControlMoveTheBall.GetTransformBall().position,
+                _isAbilityToReturn,
+                _direction,
+                _isCoinTaked
+            );
+
+            SaveAndLoadController.Save(levelData);
+        }
+
+        public void LastActionReset() {
+            _isAbilityToReturn = false;
+
+            _iControlMoveTheBall.SetStartPosition(_levelConfigs.BallStartPosition);
+        }
+
+        public void SetLevelData(LevelData levelData) {
+            _isAbilityToReturn = levelData.isAbilityToReturn;
+            _direction = levelData.direction;
+            _isCoinTaked = levelData.isCoinTaked;
+
+            _iControlMoveTheBall.SetStartPosition(levelData.ballPosition);
+        }
     }   
 }
 
 public interface IControlTheLastAction {
     public void SetNewActionData(Vector3 direction, bool isCoinTaked);
     public bool BackBeforeAction();
+    public void SaveLevelData (
+        int[] paintedCellsIndexStorage, 
+        int[] coinsOnCellsIndexStorage, 
+        int coinNumberOnLevel,
+        int numberOfCoinsCollected
+    );
+    public void LastActionReset();
+    public void SetLevelData(LevelData levelData);
 }
