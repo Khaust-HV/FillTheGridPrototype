@@ -4,7 +4,7 @@ using GameConfigs;
 using UnityEngine;
 using Zenject;
 
-public sealed class Bootstrap : MonoBehaviour { // Entry point pattern
+public sealed class GameplayBootstrap : MonoBehaviour { // Entry point pattern
     [SerializeField] private CellInteractionController[] _cellsStorage;
 
     #region DI
@@ -14,8 +14,7 @@ public sealed class Bootstrap : MonoBehaviour { // Entry point pattern
         private IControlRenderTheBall _iControlRenderTheBall;
         private VisualEffectsConfigs _visualEffectsConfigs;
         private IControlTheLevel _iControlTheLevel;
-        private LevelConfigs _levelConfigs;
-        private IControlTheLastAction _iControlTheLastAction;
+        private IControlBlackWindowView _iControlBlackWindowView;
     #endregion
 
     [Inject]
@@ -26,8 +25,7 @@ public sealed class Bootstrap : MonoBehaviour { // Entry point pattern
         IControlRenderTheBall iControlRenderTheBall,
         VisualEffectsConfigs visualEffectsConfigs,
         IControlTheLevel iControlTheLevel,
-        LevelConfigs levelConfigs,
-        IControlTheLastAction iControlTheLastAction
+        IControlBlackWindowView iControlBlackWindowView
         ) {
         // Set DI
         _iControlGameplayInput = iControlGameplayInput;
@@ -36,8 +34,7 @@ public sealed class Bootstrap : MonoBehaviour { // Entry point pattern
         _iControlRenderTheBall = iControlRenderTheBall;
         _visualEffectsConfigs = visualEffectsConfigs;
         _iControlTheLevel = iControlTheLevel;
-        _levelConfigs = levelConfigs;
-        _iControlTheLastAction = iControlTheLastAction;
+        _iControlBlackWindowView = iControlBlackWindowView;
     }
 
     private void Start() {
@@ -51,13 +48,16 @@ public sealed class Bootstrap : MonoBehaviour { // Entry point pattern
     }
 
     private IEnumerator StageByStageToCreateLevel() {
+        // Set cells
         _iControlTheLevel.SetCells(_cellsStorage);
-        _iControlTheLevel.LevelReset();
         _iControlTheLevel.SetLevelData(SaveAndLoadController.LoadLevelData());
         _iControlTheLevel.ShowCells();
 
+        _iControlBlackWindowView.SetBlackWindowActive(false);
+
         yield return new WaitForSeconds(_visualEffectsConfigs.SpawnDuration);
 
+        // Set ball
         _iControlRenderTheBall.SpawnEffectEnable();
 
         yield return new WaitForSeconds(_visualEffectsConfigs.SpawnDuration);
@@ -65,11 +65,5 @@ public sealed class Bootstrap : MonoBehaviour { // Entry point pattern
         // Set input active
         _iControlGameplayInput.SetGameplayInputActionMapActive(true);
         _iControlGameplayInput.SetAllGameplayActive(true);
-
-        // while (true) {
-        //     yield return new WaitForSeconds(5f);
-
-        //     _iControlTheLastAction.BackBeforeAction();
-        // }
     }
 }

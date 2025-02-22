@@ -13,3 +13,7 @@ MonoBehaviour:
   m_Name: GameplayUIConfigs
   m_EditorClassIdentifier: 
   <ButtonBackBeforeActionAnimationDuration>k__BackingField: 0.5
+  <ButtonMiniMenuAnimationDuration>k__BackingField: 0.5
+  <MiniMenuAnimationDuration>k__BackingField: 0.5
+  <MiniMenuButtonsAnimationDuration>k__BackingField: 0.5
+  <BlackWindowAnimationDuration>k__BackingField: 0.5

@@ -1,5 +1,5 @@
 # FillTheGridPrototype
-Test task version 0.0.4
+Test task version 0.0.5
 
 // Version Unity Editor - 2022.3.33f1
 

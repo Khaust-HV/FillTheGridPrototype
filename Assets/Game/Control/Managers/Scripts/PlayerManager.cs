@@ -1,5 +1,4 @@
 using GameConfigs;
-using Unity.VisualScripting;
 using UnityEngine;
 using Zenject;
 
@@ -37,8 +36,6 @@ namespace Managers {
             _direction = direction;
             _isCoinTaked = isCoinTaked;
             _isAbilityToReturn = true;
-
-            /* Save data */
         }
 
         public bool BackBeforeAction() {

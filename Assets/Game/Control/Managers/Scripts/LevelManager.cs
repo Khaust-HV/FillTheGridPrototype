@@ -23,13 +23,19 @@ namespace Managers {
         #region DI
             private LevelConfigs _levelConfigs;
             private IControlTheLastAction _iControlTheLastAction;
+            private IControlBlackWindowView _iControlBlackWindowView;
         #endregion
 
         [Inject]
-        private void Construct(LevelConfigs levelConfigs, IControlTheLastAction iControlTheLastAction) {
+        private void Construct (
+            LevelConfigs levelConfigs, 
+            IControlTheLastAction iControlTheLastAction,
+            IControlBlackWindowView iControlBlackWindowView
+            ) {
             // Set DI
             _levelConfigs = levelConfigs;
             _iControlTheLastAction = iControlTheLastAction;
+            _iControlBlackWindowView = iControlBlackWindowView;
 
             // Set configurations
             _cellLayer = _levelConfigs.CellLayer;
@@ -83,8 +89,20 @@ namespace Managers {
             if (_paintedCellsIndexList.Count >= _iControlInteractionTheCells.Length) {
                 Debug.Log("Level complete!");
 
-                // Level reset and load next level
+                int numberOfCoinsPlayer = SaveAndLoadController.LoadPlayerData().numberOfCoinsPlayer;
+
+                PlayerData playerData = new PlayerData(numberOfCoinsPlayer + _numberOfCoinsCollected);
+
+                SaveAndLoadController.Save(playerData);
+
+                _iControlBlackWindowView.SetBlackWindowActive(true, LoadNextLevel);
             }
+        }
+
+        private void LoadNextLevel() {
+            LevelReset();
+
+            SceneLoadController.LoadScene(_levelConfigs.NextLevel);
         }
 
         private void SaveLevelProgress() {
