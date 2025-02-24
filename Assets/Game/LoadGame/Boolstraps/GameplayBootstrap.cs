@@ -15,6 +15,7 @@ public sealed class GameplayBootstrap : MonoBehaviour { // Entry point pattern
         private VisualEffectsConfigs _visualEffectsConfigs;
         private IControlTheLevel _iControlTheLevel;
         private IControlBlackWindowView _iControlBlackWindowView;
+        private LevelConfigs _levelConfigs;
     #endregion
 
     [Inject]
@@ -25,7 +26,8 @@ public sealed class GameplayBootstrap : MonoBehaviour { // Entry point pattern
         IControlRenderTheBall iControlRenderTheBall,
         VisualEffectsConfigs visualEffectsConfigs,
         IControlTheLevel iControlTheLevel,
-        IControlBlackWindowView iControlBlackWindowView
+        IControlBlackWindowView iControlBlackWindowView,
+        LevelConfigs levelConfigs
         ) {
         // Set DI
         _iControlGameplayInput = iControlGameplayInput;
@@ -35,6 +37,7 @@ public sealed class GameplayBootstrap : MonoBehaviour { // Entry point pattern
         _visualEffectsConfigs = visualEffectsConfigs;
         _iControlTheLevel = iControlTheLevel;
         _iControlBlackWindowView = iControlBlackWindowView;
+        _levelConfigs = levelConfigs;
     }
 
     private void Start() {
@@ -48,9 +51,20 @@ public sealed class GameplayBootstrap : MonoBehaviour { // Entry point pattern
     }
 
     private IEnumerator StageByStageToCreateLevel() {
+        // Set player data
+        var playrData = SaveAndLoadController.LoadPlayerData();
+        
+        _iControlRenderTheBall.SetBallBaseColorFromPlayerData(playrData);
+        
         // Set cells
         _iControlTheLevel.SetCells(_cellsStorage);
-        _iControlTheLevel.SetLevelData(SaveAndLoadController.LoadLevelData());
+
+        var levelData = SaveAndLoadController.LoadLevelData(_levelConfigs.LevelName);
+
+        if (levelData.paintedCellsIndexStorage == null) {
+            _iControlTheLevel.LevelReset();
+        } else _iControlTheLevel.SetLevelData(levelData);
+
         _iControlTheLevel.ShowCells();
 
         _iControlBlackWindowView.SetBlackWindowActive(false);

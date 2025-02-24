@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3801fc2cc4580436bab05c05e2045949, type: 3}
   m_Name: GameplayUIConfigs
   m_EditorClassIdentifier: 
+  <DefaultButtonAnimationDuration>k__BackingField: 0.5
   <ButtonBackBeforeActionAnimationDuration>k__BackingField: 0.5
-  <ButtonMiniMenuAnimationDuration>k__BackingField: 0.5
-  <MiniMenuAnimationDuration>k__BackingField: 0.5
-  <MiniMenuButtonsAnimationDuration>k__BackingField: 0.5
+  <MiniMenuAnimationDuration>k__BackingField: 0.25
   <BlackWindowAnimationDuration>k__BackingField: 0.5

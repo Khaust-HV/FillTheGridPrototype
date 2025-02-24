@@ -26,13 +26,23 @@ namespace BallControllers {
 
             // Set other fields
             _mpbBall = new MaterialPropertyBlock();
-            _mpbBall.SetColor("_BaseColor", _visualEffectsConfigs.DefaultSkinColor);
-
-            _mrBall.SetPropertyBlock(_mpbBall);
 
             _currentBallScale = transform.localScale;
 
             transform.localScale = Vector3.zero;
+        }
+
+        public void SetBallBaseColorFromPlayerData(PlayerData playerData) {
+            Color color = playerData.currentBallSkinType switch {
+                BallSkinType.Default => _visualEffectsConfigs.DefaultSkinColor,
+                BallSkinType.Green => _visualEffectsConfigs.GreenSkinColor,
+                BallSkinType.Orange => _visualEffectsConfigs.OrangeSkinColor,
+                _ => throw new System.Exception("The skin was not found")
+            };
+
+            _mpbBall.SetColor("_BaseColor", color);
+
+            _mrBall.SetPropertyBlock(_mpbBall);
         }
 
         public Color GetBallBaseColor() {
@@ -46,6 +56,7 @@ namespace BallControllers {
 }
 
 public interface IControlRenderTheBall {
+    public void SetBallBaseColorFromPlayerData(PlayerData playerData);
     public Color GetBallBaseColor();
     public void SpawnEffectEnable();
 }

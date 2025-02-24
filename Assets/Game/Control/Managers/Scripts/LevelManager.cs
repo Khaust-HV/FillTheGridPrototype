@@ -89,9 +89,15 @@ namespace Managers {
             if (_paintedCellsIndexList.Count >= _iControlInteractionTheCells.Length) {
                 Debug.Log("Level complete!");
 
-                int numberOfCoinsPlayer = SaveAndLoadController.LoadPlayerData().numberOfCoinsPlayer;
+                PlayerData playerData = SaveAndLoadController.LoadPlayerData();
 
-                PlayerData playerData = new PlayerData(numberOfCoinsPlayer + _numberOfCoinsCollected);
+                playerData = new PlayerData (
+                    playerData.numberOfCoinsPlayer + _numberOfCoinsCollected,
+                    playerData.currentBallSkinType,
+                    playerData.availableSkins
+                );
+
+                Debug.Log(playerData.numberOfCoinsPlayer);
 
                 SaveAndLoadController.Save(playerData);
 

@@ -3,7 +3,7 @@ using UnityEngine;
 using Zenject;
 
 namespace Managers {
-    public sealed class PlayerManager : IControlTheLastAction {
+    public sealed class GameplayPlayerManager : IControlTheLastAction {
         #region Last Action Data
             private bool _isAbilityToReturn;
             private Vector3 _direction;
@@ -67,7 +67,7 @@ namespace Managers {
                 _isCoinTaked
             );
 
-            SaveAndLoadController.Save(levelData);
+            SaveAndLoadController.Save(levelData, _levelConfigs.LevelName);
         }
 
         public void LastActionReset() {

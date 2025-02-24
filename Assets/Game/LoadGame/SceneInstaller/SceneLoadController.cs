@@ -1,7 +1,10 @@
+using DG.Tweening;
 using UnityEngine.SceneManagement;
 
 public static class SceneLoadController {
     public static void LoadScene(SceneNameType sceneNameType) {
+        DOTween.KillAll();
+
         SceneManager.LoadScene(sceneNameType.ToString());
     }
 }

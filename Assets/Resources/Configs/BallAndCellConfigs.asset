@@ -15,3 +15,6 @@ MonoBehaviour:
   <StepSize>k__BackingField: 2.5
   <MoveDuration>k__BackingField: 0.25
   <PaintDuration>k__BackingField: 1
+  <AllSkinsBall>k__BackingField: 000000000100000002000000
+  <GreenSkinCost>k__BackingField: 10
+  <OrangeSkinCost>k__BackingField: 25

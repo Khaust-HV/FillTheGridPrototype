@@ -37,7 +37,7 @@ public sealed class GameplaySceneInstaller : MonoInstaller { // Dependency injec
     }
 
     private void ManagersInitAndBind() {
-        Container.BindInterfacesTo<PlayerManager>().AsSingle().NonLazy();
+        Container.BindInterfacesTo<GameplayPlayerManager>().AsSingle().NonLazy();
         Container.BindInterfacesTo<InputManager>().AsSingle().NonLazy();
         Container.BindInterfacesTo<LevelManager>().AsSingle().NonLazy();
         Container.BindInterfacesTo<GameplayUIManager>().AsSingle().NonLazy();

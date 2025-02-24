@@ -12,6 +12,10 @@ namespace BallControllers {
             _iControlRenderTheBall = GetComponent<BallRenderController>();
         }
 
+        public void SetBallBaseColorFromPlayerData(PlayerData playerData) {
+            _iControlRenderTheBall.SetBallBaseColorFromPlayerData(playerData);
+        }
+
         public void SetStartPosition(Vector3 position) {
             _iControlMoveTheBall.SetStartPosition(position);
         }

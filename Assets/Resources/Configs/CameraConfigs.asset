@@ -15,6 +15,6 @@ MonoBehaviour:
   <MovingSmoothSpeed>k__BackingField: 0.025
   <ZoomingSmoothSpeed>k__BackingField: 0.05
   <ZoomDuration>k__BackingField: 2.5
-  <SensitivityZoom>k__BackingField: 3
+  <SensitivityZoom>k__BackingField: 4
   <MinZoomScale>k__BackingField: 15
   <MaxZoomScale>k__BackingField: 25

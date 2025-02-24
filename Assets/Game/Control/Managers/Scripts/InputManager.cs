@@ -1,8 +1,9 @@
+using System;
 using UnityEngine;
 using Zenject;
 
 namespace Managers {
-    public sealed class InputManager : IControlGameplayInput {
+    public sealed class InputManager : IControlGameplayInput, IDisposable {
         private TouchscreenInputController _touchscreenInputController;
 
         private bool _isDoubleInputActive;
@@ -22,6 +23,11 @@ namespace Managers {
 
             // Set other fields
             _touchscreenInputController = new TouchscreenInputController(new InputMap());
+        }
+
+        public void Dispose() {
+            SetAllGameplayActive(false);
+            SetGameplayInputActionMapActive(false);
         }
 
         public void SetGameplayInputActionMapActive(bool isActive) {

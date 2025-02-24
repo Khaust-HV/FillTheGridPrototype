@@ -21,7 +21,7 @@ public sealed class BlackWindowViewController : MonoBehaviour, IControlBlackWind
     }
 
     private void Awake() {
-        GetComponent<Canvas>().worldCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        GetComponent<Canvas>().worldCamera = Camera.main;
     }
 
     public void SetBlackWindowActive(bool isActive, Action completion) {

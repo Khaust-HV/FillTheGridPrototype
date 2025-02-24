@@ -28,7 +28,7 @@ namespace GameplayUI {
         }
 
         private void Awake() {
-            GetComponent<Canvas>().worldCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+            GetComponent<Canvas>().worldCamera = Camera.main;
         }
 
         public void SetMiniMenuActive(bool isActive) {
@@ -48,7 +48,7 @@ namespace GameplayUI {
             _isButtonLevelResetAnimationActive = true;
 
             _rtButtonLevelReset
-                .DOPunchScale(_rtButtonLevelReset.localScale * 0.25f, _gameplayUIConfigs.MiniMenuButtonsAnimationDuration)
+                .DOPunchScale(_rtButtonLevelReset.localScale * 0.25f, _gameplayUIConfigs.DefaultButtonAnimationDuration)
                 .OnComplete(() => _isButtonLevelResetAnimationActive = false)
             ;
         }
@@ -57,7 +57,7 @@ namespace GameplayUI {
             _isButtonBackToMainMenuAnimationActive = true;
 
             _rtButtonBackToMainMenu
-                .DOPunchScale(_rtButtonBackToMainMenu.localScale * 0.25f, _gameplayUIConfigs.MiniMenuButtonsAnimationDuration)
+                .DOPunchScale(_rtButtonBackToMainMenu.localScale * 0.25f, _gameplayUIConfigs.DefaultButtonAnimationDuration)
                 .OnComplete(() => _isButtonBackToMainMenuAnimationActive = false)
             ;
         }

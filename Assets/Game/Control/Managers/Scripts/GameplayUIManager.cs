@@ -49,6 +49,8 @@ namespace Managers {
 
         #region Mini Menu Gameplay UI View
             public void ButtonLevelResetClicked() {
+                _iControlMiniMenuGameplayUIViewOutput.ButtonLevelResetAnimationEnable();
+
                 _iControlMiniMenuGameplayUIViewOutput.SetMiniMenuActive(_isMiniMenuActive = !_isMiniMenuActive);
 
                 _iControlGameplayInput.SetAllGameplayActive(true);
@@ -57,6 +59,8 @@ namespace Managers {
             }
 
             public void ButtonBackToMainMenuClicked() {
+                _iControlMiniMenuGameplayUIViewOutput.ButtonBackToMainMenuAnimationEnable();
+
                 SetBlackWindowActive(true, () => SceneLoadController.LoadScene(SceneNameType.MainMenuScene));
             }
         #endregion 

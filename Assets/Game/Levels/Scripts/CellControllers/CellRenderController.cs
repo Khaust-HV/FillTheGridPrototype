@@ -35,7 +35,7 @@ namespace CellControllers {
             // Set other fields
             _mpbCell = new MaterialPropertyBlock();
             _mpbCell.SetColor("_BaseColor", _visualEffectsConfigs.CellBaseColor);
-            _mpbCell.SetFloat("_CutoffHeight", _visualEffectsConfigs.StartCutoffHeight);
+            _mpbCell.SetFloat("_CutoffHeight", _visualEffectsConfigs.CellStartCutoffHeight);
 
             _mrCell.SetPropertyBlock(_mpbCell);
 
@@ -56,7 +56,7 @@ namespace CellControllers {
                             _mpbCell.SetFloat("_CutoffHeight", x);
                             _mrCell.SetPropertyBlock(_mpbCell);
                         }, 
-                        _visualEffectsConfigs.FinishCutoffHeight, 
+                        _visualEffectsConfigs.CellFinishCutoffHeight, 
                         _ballAndCellConfigs.PaintDuration
                     );
                 break;
@@ -68,7 +68,7 @@ namespace CellControllers {
                             _mpbCell.SetFloat("_CutoffHeight", x);
                             _mrCell.SetPropertyBlock(_mpbCell);
                         }, 
-                        _visualEffectsConfigs.StartCutoffHeight, 
+                        _visualEffectsConfigs.CellStartCutoffHeight, 
                         _ballAndCellConfigs.PaintDuration
                     );
                 break;

@@ -24,7 +24,7 @@ namespace GameplayUI {
         }
 
         private void Awake() {
-            GetComponent<Canvas>().worldCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+            GetComponent<Canvas>().worldCamera = Camera.main;
         }
 
         public void ButtonBackBeforeActionAnimationEnable() {
@@ -41,7 +41,7 @@ namespace GameplayUI {
             _isButtonMiniMenuAnimationActive = true;
 
             _rtButtonMiniMenu
-                .DOPunchScale(_rtButtonMiniMenu.localScale * 0.25f, _gameplayUIConfigs.ButtonMiniMenuAnimationDuration)
+                .DOPunchScale(_rtButtonMiniMenu.localScale * 0.25f, _gameplayUIConfigs.DefaultButtonAnimationDuration)
                 .OnComplete(() => _isButtonMiniMenuAnimationActive = false)
             ;
         }

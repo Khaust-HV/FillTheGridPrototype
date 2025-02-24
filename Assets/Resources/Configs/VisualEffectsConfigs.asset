@@ -15,9 +15,14 @@ MonoBehaviour:
   <CellMaterial>k__BackingField: {fileID: 2100000, guid: 482e9bd948af84a98bc8d48316eea57b,
     type: 2}
   <CellBaseColor>k__BackingField: {r: 0.5849056, g: 0.5849056, b: 0.5849056, a: 0}
-  <StartCutoffHeight>k__BackingField: -7
-  <FinishCutoffHeight>k__BackingField: -1
+  <CellStartCutoffHeight>k__BackingField: -6.79
+  <CellFinishCutoffHeight>k__BackingField: -1.5
   <SpawnDuration>k__BackingField: 1
+  <BallDissolveSpawnDuration>k__BackingField: 0.5
   <DefaultSkinMaterial>k__BackingField: {fileID: 2100000, guid: 55d2fc3218e7c4a45aeb43555fc1a7d4,
     type: 2}
-  <DefaultSkinColor>k__BackingField: {r: 1, g: 0.35096747, b: 0, a: 0}
+  <BallStartCutoffHeight>k__BackingField: -1.3
+  <BallFinishCutoffHeight>k__BackingField: 0.5
+  <DefaultSkinColor>k__BackingField: {r: 0, g: 0.38457632, b: 1, a: 0}
+  <GreenSkinColor>k__BackingField: {r: 0.12454414, g: 1, b: 0, a: 0}
+  <OrangeSkinColor>k__BackingField: {r: 1, g: 0.65579164, b: 0, a: 0}
